@@ -5,7 +5,7 @@ package recuitsimule;
 public class City {
 	private static final double EARTH_EQUATORIAL_RADIUS=6378.1370D; 
 	private static final double CONVERT_DEGREES_TO_RADIANS=Math.PI/180D; 
-	private static final double CONVERT_KMS_TO_MILES=0.621371;
+//	private static final double CONVERT_KMS_TO_MILES=0.621371;
 	
 	private double longitude; 
 	private double latitude; 
