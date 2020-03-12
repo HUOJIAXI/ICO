@@ -7,7 +7,7 @@ public class Main {
 		   RS.initTour();
 		   Route MeuRoute = RS.recuit();
 		   System.out.println("Meuilleure solution: " + MeuRoute.getTotalDistance());
-		   System.out.println("Route: " + MeuRoute);
+		   System.out.println("Route: " + MeuRoute.toString());
 		   
 	}
 
