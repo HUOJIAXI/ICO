@@ -11,9 +11,9 @@ public class Recuitsimule {
 	
 	   public void initTour() {
 	        Route route = new Route();
-	        route.addCity(new City("Bordeaux", 44.8333, 0.5667))
+	        route.addCity(new City("Bordeaux", 44.8333, -0.5667))
 	            .addCity(new City("Lyon", 45.75,4.85))
-	            .addCity(new City("Nantes",47.2173, 1.5534))
+	            .addCity(new City("Nantes",47.2173, -1.5534))
 	            .addCity(new City("Paris", 48.8534,2.3488))
 	            .addCity(new City("Marseille",43.3, 5.4))
 	            .addCity(new City("Dijon",47.3167,  5.0167));
