@@ -16,6 +16,13 @@ public class Route {
 		cities=new ArrayList<City>();
 		
 	}
+	
+	public String getInit()
+	{
+		String initcity="Bordeaux";
+		return initcity;
+	}
+	
 	 // À partir d'autre route
 	public Route(ArrayList<City> route) {
 		cities=new ArrayList<City>();
@@ -23,10 +30,13 @@ public class Route {
 		for (City city : route) {
             this.cities.add(city);
         }
+		
+		//citydepart=this.cities.get(0).getName();
+		
 		Collections.shuffle(this.cities);
-		if(this.cities.get(0).getName()!="Bordeaux") {
+		if(this.cities.get(0).getName()!=getInit()) {
 			for(int i=0;i<this.cities.size();i++) {
-				if(this.cities.get(i).getName()=="Bordeaux") {
+				if(this.cities.get(i).getName()==getInit()) {
 					Collections.swap(this.cities, i, 0);
 					break;
 				}
@@ -49,9 +59,19 @@ public class Route {
 		//setCity(cities.size()-1, this.getCity(0));
 		
 		Collections.shuffle(cities);
+		if(this.cities.get(0).getName()!=getInit()) {
+			for(int i=0;i<this.cities.size();i++) {
+				if(this.cities.get(i).getName()==getInit()) {
+					Collections.swap(this.cities, i, 0);
+					break;
+				}
+			}
+		} 
+		
 		return this;
 		
 	}
+
 	
 	public Route GenerateTourVoisinage()
 	{
@@ -125,4 +145,3 @@ public class Route {
 	
 	
 }
-

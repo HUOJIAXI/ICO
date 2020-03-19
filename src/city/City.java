@@ -8,6 +8,7 @@ public class City {
 	private double longitude; 
 	private double latitude; 
 	private String name;
+//	private String citydepart;
 	
 	public City(String name,double latitude, double longitude)
 	{ 
@@ -33,6 +34,7 @@ public class City {
 	{
 		return this.name;
 	}
+	
 	
 	public double measureDistance(City city){
 		double deltaLatitude = city.getLatitude() - this.getLatitude(); 

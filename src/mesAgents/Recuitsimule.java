@@ -4,10 +4,10 @@ import route.*;
 import city.*;
 
 public class Recuitsimule {
-	private double Tempinit = 5000;
+	private double Tempinit = 500;
 	private double Tempfini = 1;
 	
-	private double LoopInternal=100;
+	private double LoopInternal=50;
 	private double coolingRate = 0.01;
 	
 	private Route Solution ;
