@@ -1,4 +1,7 @@
-package recuitsimule;
+package city;
+
+
+import java.util.ArrayList;
 
 //import com.sun.org.apache.bcel.internal.generic.RETURN;
 
@@ -31,8 +34,7 @@ public class City {
 		return this.name;
 	}
 	
-	public String toString()
-	{
+	public String toString(){
 		return this.name;
 	}
 	
@@ -44,3 +46,5 @@ public class City {
 		return EARTH_EQUATORIAL_RADIUS*2D*Math.atan2(Math.sqrt(a), Math.sqrt(1D-a));
 	}
 }
+
+
