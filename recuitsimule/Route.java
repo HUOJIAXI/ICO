@@ -21,6 +21,14 @@ public class Route {
             this.cities.add(city);
         }
 		Collections.shuffle(this.cities);
+		if(this.cities.get(0).getName()!="Bordeaux") {
+			for(int i=0;i<this.cities.size();i++) {
+				if(this.cities.get(i).getName()=="Bordeaux") {
+					Collections.swap(this.cities, i, 0);
+					break;
+				}
+			}
+		} 
 	}
 	
 	public ArrayList<City> getCities(){
@@ -45,8 +53,14 @@ public class Route {
 	public Route GenerateTourVoisinage()
 	{
 		Route NouvelleSolution = new Route(this.cities);
-		int routePos1 = (int) (NouvelleSolution.sizeOfCities() * Math.random());
-		int routePos2 = (int) (NouvelleSolution.sizeOfCities() * Math.random());
+		int routePos1 = 0;
+		int routePos2 = 0;
+		
+		while(routePos1==routePos2||routePos1==0||routePos2==0)
+		{
+			routePos1 = (int) (NouvelleSolution.sizeOfCities() * Math.random());
+			routePos2 = (int) (NouvelleSolution.sizeOfCities() * Math.random());
+		}
 		City cityechange1 = NouvelleSolution.getCity(routePos1);
 		City cityechange2 = NouvelleSolution.getCity(routePos2);
 		

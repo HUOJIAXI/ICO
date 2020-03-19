@@ -13,14 +13,14 @@ public class Main {
 		   Route MeuRoute = RS.recuit();
 		   System.out.println("Meuilleure solution: " + MeuRoute.getTotalDistance());
 		   
-		   System.out.println("Route: ");
+		   System.out.println("Route: " + MeuRoute.getCities().toString());
 		   
-		   for(int i =5;i>=0;i--)
-		   {
-			   System.out.print("  " + MeuRoute.getCity(i).toString()+ "  ->");
-		   }
-		   
-		   //System.out.println(MeuRoute.toString().getClass());
+//		   for(int i =5;i>=0;i--)
+//		   {
+//			   System.out.print("  " + MeuRoute.getCity(i).toString()+ "  -");
+//		   }
+		 //  System.out.print("Bordeaux");
+		//   System.out.println(MeuRoute.toString().getClass());
 		   
 	}
 	   

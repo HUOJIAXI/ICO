@@ -2,10 +2,10 @@ package recuitsimule;
 
 public class Recuitsimule {
 	private double Tempinit = 5000;
-	private double Tempfini = 0.0001;
+	private double Tempfini = 1;
 	
-	private double LoopInternal=1000;
-	private double coolingRate = 0.001;
+	private double LoopInternal=100;
+	private double coolingRate = 0.01;
 	
 	private Route Solution ;
 	
