@@ -3,8 +3,6 @@ package BaseDeDonnee;
 import java.sql.*;
 import java.util.ArrayList;
 
-//import sun.tools.tree.ThisExpression;
-
 public class BDD {
 	
 	public static int num;
@@ -14,7 +12,7 @@ public class BDD {
 		BDD.num=numrecherche; 
 	}
 	
-	public static ArrayList<String> getName(ArrayList<String> carte) {
+	public ArrayList<String> getName(ArrayList<String> carte) {
 		
 		ArrayList<String> listeVilles = new ArrayList<String>();
 		
@@ -25,7 +23,7 @@ public class BDD {
 		return listeVilles;
 	}
 	
-	public static ArrayList<Double> getLatitude(ArrayList<String> carte) {
+	public ArrayList<Double> getLatitude(ArrayList<String> carte) {
 		
 		ArrayList<Double> listeLatitudes = new ArrayList<Double>();
 		
@@ -36,7 +34,7 @@ public class BDD {
 		return listeLatitudes;
 	}
 	
-	public static ArrayList<Double> getLongitude(ArrayList<String> carte) {
+	public ArrayList<Double> getLongitude(ArrayList<String> carte) {
 		
 		ArrayList<Double> listeLongitude = new ArrayList<Double>();
 		
@@ -47,7 +45,7 @@ public class BDD {
 		return listeLongitude;
 	}
 		
-	public static ArrayList<String> BDDconnexion(){
+	public ArrayList<String> BDDconnexion(){
 		
 	String UserName="root";
 	String Password="zjuhjx1998";

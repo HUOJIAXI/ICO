@@ -6,11 +6,11 @@ import java.util.ArrayList;
 public class exe_bdd {
 
 	public static void main(String[] args) {
-		new BDD(10);
-		ArrayList<String> carte = BDD.BDDconnexion();
-		ArrayList<String> tableauVilles = BDD.getName(carte);
-		ArrayList<Double> listeLatitudes = BDD.getLatitude(carte);
-		ArrayList<Double> listeLongitudes = BDD.getLongitude(carte);
+		BDD bdd = new BDD(20);
+		ArrayList<String> carte = bdd.BDDconnexion();
+		ArrayList<String> tableauVilles = bdd.getName(carte);
+		ArrayList<Double> listeLatitudes = bdd.getLatitude(carte);
+		ArrayList<Double> listeLongitudes = bdd.getLongitude(carte);
 		System.out.println(tableauVilles);
 		System.out.println(listeLatitudes);
 		System.out.println(listeLongitudes);
