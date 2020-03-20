@@ -34,6 +34,7 @@ public class Route {
 		//citydepart=this.cities.get(0).getName();
 		
 		Collections.shuffle(this.cities);
+		
 		if(this.cities.get(0).getName()!=getInit()) {
 			for(int i=0;i<this.cities.size();i++) {
 				if(this.cities.get(i).getName()==getInit()) {
@@ -59,6 +60,7 @@ public class Route {
 		//setCity(cities.size()-1, this.getCity(0));
 		
 		Collections.shuffle(cities);
+		
 		if(this.cities.get(0).getName()!=getInit()) {
 			for(int i=0;i<this.cities.size();i++) {
 				if(this.cities.get(i).getName()==getInit()) {
