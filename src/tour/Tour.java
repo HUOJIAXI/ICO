@@ -4,9 +4,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import city.City;
+import jade.util.leap.Serializable;
 
 
-public class Tour {
+public class Tour implements Serializable{
 	private ArrayList<City> cityList;
 	private float distance=0;
 	private City depart;
@@ -70,6 +71,10 @@ public class Tour {
 	
 	public ArrayList getCityList() {
 		return this.cityList;
+	}
+	
+	public City getDepart() {
+		return this.depart;
 	}
 	
 	public float getDistance() {

@@ -18,6 +18,13 @@ public class ModeleRecuitSimule {
 		System.out.println("Initial solution distance: " + currentSolution.getDistance());
 	}
 	
+	public void reInitTour(Tour tourResultatRecu) {
+		this.currentSolution=tourResultatRecu;
+		System.out.println("Tour initail: " + this.currentSolution);
+		System.out.println("Initial solution distance: " + currentSolution.getDistance());
+	}
+	
+	
 	public Tour recuitSimule() {
 		Tour bestSolution=currentSolution;
 		Tour newSolution=null;
