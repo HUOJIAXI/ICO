@@ -2,6 +2,7 @@ package BaseDeDonnee;
 
 import java.sql.*;
 import java.util.ArrayList;
+//  Classe pour la base de données
 
 public class BDD {
 	
