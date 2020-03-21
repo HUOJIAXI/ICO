@@ -49,7 +49,6 @@ public class BDD {
 		
 	String UserName="root";
 	String Password="zjuhjx1998";
-	
 	String num_recherche=String.valueOf(num);
 	
 	Connection connect = null;
