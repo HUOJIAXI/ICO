@@ -2,7 +2,7 @@ package BaseDeDonnee;
 
 import java.sql.*;
 import java.util.ArrayList;
-//  Classe pour la base de données
+//  Classe pour la base de données 21/03/2020
 
 public class BDD {
 	
