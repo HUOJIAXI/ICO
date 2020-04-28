@@ -1,5 +1,6 @@
 package recuitsimule;
 import java.util.ArrayList;
+import recuitsimule.City;
 import java.util.Arrays;
 import java.util.Collections;
 
@@ -16,14 +17,18 @@ public class Route {
 	 // À partir d'autre route
 	public Route(ArrayList<City> route) {
 		cities=new ArrayList<City>();
+		//System.out.println(citydepart);
 		//this.cities.addAll(cities);
 		for (City city : route) {
             this.cities.add(city);
         }
+		
+		//citydepart=this.cities.get(0).getName();
+		
 		Collections.shuffle(this.cities);
-		if(this.cities.get(0).getName()!="Bordeaux") {
+		if(this.cities.get(0).getName()!=getInit()) {
 			for(int i=0;i<this.cities.size();i++) {
-				if(this.cities.get(i).getName()=="Bordeaux") {
+				if(this.cities.get(i).getName()==getInit()) {
 					Collections.swap(this.cities, i, 0);
 					break;
 				}
@@ -45,9 +50,24 @@ public class Route {
 		
 		//setCity(cities.size()-1, this.getCity(0));
 		
-		Collections.shuffle(cities);
+//		Collections.shuffle(cities);
+		if(this.cities.get(0).getName()!=getInit()) {
+			for(int i=0;i<this.cities.size();i++) {
+				if(this.cities.get(i).getName()==getInit()) {
+					Collections.swap(this.cities, i, 0);
+					break;
+				}
+			}
+		} 
+		
 		return this;
 		
+	}
+	
+	public String getInit()
+	{
+		String initcity="Bordeaux";
+		return initcity;
 	}
 	
 	public Route GenerateTourVoisinage()
@@ -93,26 +113,34 @@ public class Route {
     }
 	
 	public double getTotalDistance(){
-		if (distance==0)
-		{
-			int routedistance =0;
-			for (int Index=0;Index<sizeOfCities();Index++)
-			{
-				City citydepart=getCity(Index);
-				City citydestination;
-				
-				if (Index+1<sizeOfCities()) {
-					citydestination=getCity(Index+1);					
-				}
-				else {
-				citydestination=getCity(0);
-				}
-				routedistance+=citydepart.measureDistance(citydestination);
-			}
-			
-			distance=routedistance;		
-		}
-		return distance;
+//		if (distance==0)
+//		{
+//			int routedistance =0;
+//			for (int Index=0;Index<sizeOfCities();Index++)
+//			{
+//				City citydepart=getCity(Index);
+//				City citydestination;
+//				
+//				if (Index+1<sizeOfCities()) {
+//					citydestination=getCity(Index+1);					
+//				}
+//				else {
+//				citydestination=getCity(0);
+//				}
+//				routedistance+=citydepart.measureDistance(citydestination);
+//			}
+//			
+//			distance=routedistance;		
+//		}
+//		return distance;
+        int cities_nums = this.cities.size();
+        double TotalDistance = 0;
+        ArrayList<City> x = getAllCities();
+        for(int i = 0;i < cities_nums - 1;i++){
+            TotalDistance += x.get(i).measureDistance(x.get(i+1));
+        }
+        return TotalDistance;
+
 
 	}
 	
