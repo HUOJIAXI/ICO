@@ -8,7 +8,7 @@ import java.util.TimeZone;
 
 import city.City;
 import jade.core.Agent;
-import mesComportements.InteractionRS;
+import mesComportements.BehaviourRS;
 import mesMetaheuristiques.ModeleRS;
 import outil.GUI;
 import tour.Tour;
@@ -41,11 +41,20 @@ public class AgentRS extends Agent {
 			double bestDis=bestT.getDistance();
 			long overTime=System.currentTimeMillis();
 			long excutionTime=overTime-initTime;
-//			String hms = sdf.format(excutionTime);
 			System.out.println("RS    |Best Tour: " + bestT);
 			System.out.println("RS    |Final solution distance: " + bestDis);
 			System.out.println("Rs    |Le temps d'éxecution est :"+ excutionTime+"ms");
 		}
+		
+		System.out.println("=====================================================");
+
+		
+		try {
+			Thread.sleep(6000);
+			} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			}
 		
 		long initTimeSMA =  System.currentTimeMillis();
 		ModeleRS rs=new ModeleRS();
@@ -53,7 +62,7 @@ public class AgentRS extends Agent {
 		this.bestTour = rs.recuitSimule();
 		this.bestDistance=bestTour.getDistance();
 		
-		addBehaviour(new InteractionRS(this,initTimeSMA));
+		addBehaviour(new BehaviourRS(this,initTimeSMA));
 	}
 	
 	public ModeleRS getModele() {

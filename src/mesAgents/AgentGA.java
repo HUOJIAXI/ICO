@@ -3,7 +3,7 @@ package mesAgents;
 import jade.core.Agent;
 import outil.GUI;
 import tour.Tour;
-import mesComportements.InteractionGA;
+import mesComportements.BehaviourGA;
 import mesMetaheuristiques.ModeleGA;
 import mesMetaheuristiques.ModeleRS;
 
@@ -35,7 +35,7 @@ public class AgentGA extends Agent {
 		Tour tour=(Tour)argsTour[0];	
 		for(int i=0;i<NB_EXECUTION;i++) {
 			    long initTime = System.currentTimeMillis();
-			    ModeleGA gas = new ModeleGA(30, 0.15, tour.getCityList(),tour.getDepart());
+			    ModeleGA gas = new ModeleGA(50, 0.15, tour.getCityList(),tour.getDepart());
 			    gas.Evolution();
 		        Tour bestT = new Tour(gas.getShortestTour());
 		        double bestDis = bestT.getDistance();
@@ -45,18 +45,20 @@ public class AgentGA extends Agent {
 				System.out.println("GA    |Final solution distance: " + bestDis);
 				System.out.println("GA    |Le temps d'éxecution est :"+ excutionTime+"ms");
 			}
+		System.out.println("=====================================================");
+
 		
 		long initTimeSMA = System.currentTimeMillis();
-        ModeleGA gas = new ModeleGA(30, 0.15, tour.getCityList(),tour.getDepart());
+        ModeleGA gas = new ModeleGA(50, 0.15, tour.getCityList(),tour.getDepart());
         gas.Evolution();
         this.shortestTour = new Tour(gas.getShortestTour());
         this.ShortestTotalDistance = this.shortestTour.getDistance();
 		
-        addBehaviour(new InteractionGA(this,initTimeSMA));
+        addBehaviour(new BehaviourGA(this,initTimeSMA));
 
     }
 
-    public ModeleGA getModele() {
+    public ModeleGA getModele(){
         return this.myGA;
     }
 

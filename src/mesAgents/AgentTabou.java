@@ -6,8 +6,8 @@ import java.util.Date;
 import java.util.TimeZone;
 
 import jade.core.Agent;
-import mesComportements.InteractionRS;
-import mesComportements.InteractionTabou;
+import mesComportements.BehaviourRS;
+import mesComportements.BehaviourTabou;
 import mesMetaheuristiques.ModeleRS;
 import mesMetaheuristiques.ModeleTabou;
 import outil.GUI;
@@ -32,13 +32,12 @@ public class AgentTabou extends Agent{
 //        tour.addCity(new City("Marseille", 43.2965,5.3698));
 //        tour.addCity(new City("Dijon", 47.3220,5.0415));	
 		argsTour = getArguments();
-//		System.out.println("Tabou is here");
 		Tour tour=(Tour)argsTour[0];
 
 		for(int i=0;i<NB_EXECUTION;i++) {
 //			System.out.println("Tabou is in for boucle");
 		    long initTime =  System.currentTimeMillis();
-		    ModeleTabou tabou=new ModeleTabou(20, 50, 30, 20 );;
+		    ModeleTabou tabou=new ModeleTabou(10, 30, 6, 2);
 			tabou.init(tour);
 			tabou.generateInitGroup();
 			Tour bestT = tabou.getBestTour();
@@ -50,14 +49,23 @@ public class AgentTabou extends Agent{
 			System.out.println("Tabou |Le temps d'éxecution est :"+ excutionTime+"ms");
 		}
 		
+		System.out.println("=====================================================");
+		
+		try {
+			Thread.sleep(6000);
+			} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			}
+		
 		long initTimeSMA =  System.currentTimeMillis();
-		ModeleTabou tabu = new ModeleTabou(20, 50, 30, 20 );;
+		ModeleTabou tabu = new ModeleTabou(10, 30, 6, 2);
 		tabu.init(tour);
 		tabu.generateInitGroup();
 		this.bestTour = tabu.getBestTour();
 		this.bestDistance=bestTour.getDistance();
 		    
-		addBehaviour(new InteractionTabou(this,initTimeSMA));
+		addBehaviour(new BehaviourTabou(this,initTimeSMA));
 	    
 	} 
 	

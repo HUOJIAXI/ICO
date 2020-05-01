@@ -14,13 +14,13 @@ import outil.GUI;
 import tour.Tour;
 
 public class Plateforme {
-	private static int NB_VILLE=30;
+	private static int NB_VILLE=10;
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		jade.core.Runtime rt=jade.core.Runtime.instance();
 				
-		AgentController AgentRS,AgentGA,AgentTabou;
+		AgentController AgentRS,AgentGA,AgentTabou,AgentCentrale;
 		
 		ProfileImpl mainPlateforme= new ProfileImpl(null,2020,"Plateforme_multiagnets_PVC");
 		AgentContainer ac=rt.createMainContainer(mainPlateforme);
@@ -56,6 +56,9 @@ public class Plateforme {
 			
 			AgentTabou=ac.createNewAgent("AgentTabou", "mesAgents.AgentTabou",argsTour);
 			AgentTabou.start();
+			
+			AgentCentrale=ac.createNewAgent("AgentCentrale", "mesAgents.AgentCentrale",argsTour);
+			AgentCentrale.start();
 			
 		}catch(StaleProxyException e) {
 			e.printStackTrace();
