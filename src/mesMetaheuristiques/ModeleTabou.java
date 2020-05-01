@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Random;
 
 import city.City;
+import data.RequeteVilleNombre;
 import tour.Tour;
 
 /**
@@ -106,7 +107,7 @@ public class ModeleTabou {
     /**
      * generate the initial group
      */
-    void generateInitGroup() {
+    public void generateInitGroup() {
 //        System.out.println("1. Generate the initial group");
         this.route.generateIndividuel();
     }
@@ -136,7 +137,7 @@ public class ModeleTabou {
      *
      */
     public ArrayList<Tour> getNeighbourhood(Tour route, int tempNeighbourhoodNum) {
-        if (route == null) {
+    	if (route == null) {
             System.err.println("Route is null");
         }
         int[][] orderList = new int[nodeNum * (nodeNum - 1) / 2][2];
@@ -146,33 +147,38 @@ public class ModeleTabou {
                 orderList[(2 * nodeNum - i - 1) * i / 2 + j - i - 1][1] = j;
             }
         }
+
         if ((tempNeighbourhoodNum + tabuTableLength) >= orderList.length) {
             tempNeighbourhoodNum = orderList.length - tabuTableLength;
         }
-        List ranIndexList = getRandomNumList(tempNeighbourhoodNum + tabuTableLength, 0, orderList.length);
+
+        List ranIndexList = getRandomNumList(tempNeighbourhoodNum + tabuTableLength + nodeNum - 1, 0, orderList.length);
         ArrayList routeList = new ArrayList<Tour>();
-        int k = nodeNum-1;
+        int k = 0;
         while (k < ranIndexList.size() && routeList.size() < tempNeighbourhoodNum) {
             Tour tempRoute = new Tour(route);
 
             int index = (int) ranIndexList.get(k);
 
-            //System.out.println("tempRoute size= " + tempRoute.getCities().size());
-            Collections.swap(tempRoute.getCityList(), orderList[index][0], orderList[index][1]);
-
-            if (isInTabuTable(tempRoute)) {
-                k++;
+            if (orderList[index][0] != 0) {
+                Collections.swap(tempRoute.getCityList(), orderList[index][0], orderList[index][1]);
+                if (isInTabuTable(tempRoute)) {
+                    k++;
+                } else {
+                    routeList.add(tempRoute);
+                    k++;
+                }
             } else {
-                routeList.add(tempRoute);
                 k++;
             }
+
         }
 
         return routeList;
     }
 
     public ArrayList<Tour> getNeighbourhood2(Tour route, int tempNeighbourhoodNum) {
-        ArrayList routeList = new ArrayList<Tour>();
+    	ArrayList routeList = new ArrayList<Tour>();
         routeList = this.getNeighbourhood(route, tempNeighbourhoodNum);
         int[][] orderList = new int[nodeNum * (nodeNum - 1) / 2][2];
         for (int i = 0; i < nodeNum - 1; i++) {
@@ -181,20 +187,22 @@ public class ModeleTabou {
                 orderList[(2 * nodeNum - i - 1) * i / 2 + j - i - 1][1] = j;
             }
         }
-        List ranIndexList2 = getRandomNumList((int) tempNeighbourhoodNum/2  + tabuTableLength, 0, orderList.length);
-        int k = nodeNum-1;
-        while (k < ranIndexList2.size() && routeList.size() /2 < tempNeighbourhoodNum) {
-            Tour tempRoute = new  Tour((Tour) routeList.get(k));
+        List ranIndexList2 = getRandomNumList((int) tempNeighbourhoodNum / 2 + tabuTableLength, 0, orderList.length);
+        int k = 0;
+        while (k < ranIndexList2.size() && routeList.size() / 2 < tempNeighbourhoodNum) {
+        	Tour tempRoute = new Tour((Tour) routeList.get(k));
 
             int index = (int) ranIndexList2.get(k);
 
-            //System.out.println("tempRoute size= " + tempRoute.getCities().size());
-            Collections.swap(tempRoute.getCityList(), orderList[index][0], orderList[index][1]);
-
-            if (isInTabuTable(tempRoute)) {
-                k++;
+            if (orderList[index][0] != 0) {
+                Collections.swap(tempRoute.getCityList(), orderList[index][0], orderList[index][1]);
+                if (isInTabuTable(tempRoute)) {
+                    k++;
+                } else {
+                    routeList.add(tempRoute);
+                    k++;
+                }
             } else {
-                routeList.set(k, tempRoute);
                 k++;
             }
 
@@ -367,7 +375,7 @@ public class ModeleTabou {
         Tour priviousRoute = new Tour(route);
 
         // initialisation solution
-        generateInitGroup();
+        //generateInitGroup();
         //System.out.println("Check point: currentRoute= " + route);
 
         // regard the current route as the best route
@@ -427,20 +435,34 @@ public class ModeleTabou {
      */
     public static void main(String[] args) throws IOException {
         System.out.println("Start....");
-        ModeleTabou tabu = new ModeleTabou(6, 30, 10, 4);
-        ArrayList<City> cities=new  ArrayList<City> ();  
-        cities.add(new City("Bordeaux", 44.8378,-0.5792));
-        cities.add(new City("Lyon", 45.7640,4.8357));
-        cities.add(new City("Nantes", 47.2184,-1.5536));
-        cities.add(new City("Paris",48.8566,2.3522));
-        cities.add(new City("Marseille", 43.2965,5.3698));
-        cities.add(new City("Dijon", 47.3220,5.0415));
-//        City depart=new City("Bordeaux", 44.8378,-0.5792)
-        Tour tour=new Tour(cities.get(0),cities);
-//        tour.setDepart(new City("Bordeaux", 44.8378,-0.5792));
-	    tabu.init(tour);
-	    
-	    tabu.startSearch();
+//        ArrayList<City> cities=new  ArrayList<City> ();  
+//        cities.add(new City("Bordeaux", 44.8378,-0.5792));
+//        cities.add(new City("Lyon", 45.7640,4.8357));
+//        cities.add(new City("Nantes", 47.2184,-1.5536));
+//        cities.add(new City("Paris",48.8566,2.3522));
+//        cities.add(new City("Marseille", 43.2965,5.3698));
+//        cities.add(new City("Dijon", 47.3220,5.0415));
+        Tour tour=new Tour();
+        RequeteVilleNombre requeteVilleNobre = new RequeteVilleNombre(20);
+        ArrayList<String> carte = requeteVilleNobre.BDDconnexion();
+        ArrayList<String> tableauVilles = requeteVilleNobre.getName(carte);
+        ArrayList<Double> listeLatitudes = requeteVilleNobre.getLatitude(carte);
+        ArrayList<Double> listeLongitudes = requeteVilleNobre.getLongitude(carte);
+        tour.setDepart(new City(tableauVilles.get(0), listeLatitudes.get(0),listeLongitudes.get(0)));
+        for(int i=0;i<tableauVilles.size();i++) {
+         City city=new City(tableauVilles.get(i),listeLatitudes.get(i),listeLongitudes.get(i));
+         tour.addCity(city);
+        }
+
+//   		    long initTime =  System.currentTimeMillis();
+	    ModeleTabou tabou=new ModeleTabou(20, 50, 30, 20 );
+		tabou.init(tour);
+		tabou.generateInitGroup();
+		Tour bestT = tabou.getBestTour();
+		double bestDis=bestT.getDistance();
+
+		System.out.println("Tabou |Best Tour: " + bestT);
+		System.out.println("Tabou |Final solution distance: " + bestDis);
     }
 
 }

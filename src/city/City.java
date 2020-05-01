@@ -3,9 +3,12 @@ package city;
 
 import java.util.ArrayList;
 
+import jade.util.leap.Serializable;
+import tour.Tour;
+
 //import com.sun.org.apache.bcel.internal.generic.RETURN;
 
-public class City {
+public class City  implements Serializable{
 	private static final double EARTH_EQUATORIAL_RADIUS=6378.1370D; 
 	private static final double CONVERT_DEGREES_TO_RADIANS=Math.PI/180D; 
 	private static final double CONVERT_KMS_TO_MILES=0.621371;
@@ -44,6 +47,32 @@ public class City {
 		double a=Math.pow(Math.sin(deltaLatitude/2D), 2D)+Math.cos(this.getLatitude())*Math.cos(city.getLatitude())*Math.pow(Math.sin(deltaLongitude/2D), 2D);
 		
 		return EARTH_EQUATORIAL_RADIUS*2D*Math.atan2(Math.sqrt(a), Math.sqrt(1D-a));
+	}
+	
+	
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		
+		if (obj == null) {
+			return false;
+		}
+
+		final City other = (City) obj;
+		if (this.getName().equals(other.getName())) {
+			return false;
+		}
+		
+		if(this.getLatitude()!=other.getLatitude()) {
+			return false;
+		}
+		
+		if(this.getLongitude()!=other.getLongitude()){
+			return false;
+		}
+		
+		return true;
 	}
 }
 

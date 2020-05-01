@@ -2,7 +2,10 @@ package mesComportements;
 
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.TimeZone;
 
 import jade.core.AID;
 import jade.core.behaviours.CyclicBehaviour;
@@ -22,10 +25,14 @@ public class InteractionGA extends OneShotBehaviour{
     private double bestDistance;
     private Tour bestTour;
     private int NOMBRE_VERIFICATION=3;
+    private long initTimeSMA;
     
-    public InteractionGA(AgentGA monAgent){
+    public InteractionGA(AgentGA monAgent, long initTimeSMA){
+    	super(monAgent);
         this.monAgent = monAgent;
+		this.bestTour=monAgent.getBestTour();
         this.bestDistance = monAgent.getBestDistance();
+        this.initTimeSMA=initTimeSMA;
     }
     
     public void action() {
@@ -40,23 +47,32 @@ public class InteractionGA extends OneShotBehaviour{
 	    msgEnvoyer.addReceiver(new AID("AgentRS@Plateforme_multiagnets_PVC",AID.ISGUID));
 	    msgEnvoyer.addReceiver(new AID("AgentTabou@Plateforme_multiagnets_PVC",AID.ISGUID));
 		monAgent.send(msgEnvoyer);
-		System.out.format("GA    |send message %d\n",i++);
-
+//		System.out.format("GA    |send message %d\n",i++);
 		
 		int nombreEgale=0;
 		ACLMessage msgRecu=this.monAgent.receive();
-		System.out.format("GA    |receive message %d\n",j++);
+//		if(msgRecu!=null)
+//			System.out.format("GA    |receive message %d\n",j++);
 
 		while(true) {
 			if(msgRecu!=null) {
 				try{
 					if(nombreEgale>this.NOMBRE_VERIFICATION) {
-						System.out.println("AgentGA was done!");
+						long overTime = System.currentTimeMillis();
+						long excutionTime=overTime-initTimeSMA;
+						System.out.println("GASMA |AgentGA was done!");
+						System.out.println("GASMA |Best Tour: " + this.bestTour);
+						System.out.println("GASMA |Final solution distance: " + this.bestDistance);
+						System.out.println("GASMA |Le temps d'éxecution SMA est :"+ excutionTime+"ms");
 						break;
 					}
 					Tour tour= (Tour)msgRecu.getContentObject();
-					if(tour==this.bestTour) {
+//					System.out.println("GA    |I  get  a  tour: "+tour.toString()+"; Distance "+tour.getDistance());
+//					System.out.println("GA    |bestTourCurrent: "+this.bestTour.toString()+"; Distance "+this.bestTour.getDistance());
+					
+					if(tour.toString().equals(this.bestTour.toString())) {
 						nombreEgale++;
+//						System.out.println("GA    |nombreEgale:"+nombreEgale);
 					}else{
 						nombreEgale=0;
 						ModeleGA GA=new ModeleGA(30,0.15,tour);
@@ -72,20 +88,21 @@ public class InteractionGA extends OneShotBehaviour{
 					}
 					msgEnvoyer = new ACLMessage(ACLMessage.REQUEST);
 					try {
-					    msgEnvoyer.setContentObject(this.bestTour);
+				    	msgEnvoyer.setContentObject(this.bestTour);
 					}catch (IOException e) {
 					    e.printStackTrace();
 					}
 					msgEnvoyer.addReceiver(new AID("AgentRS@Plateforme_multiagnets_PVC",AID.ISGUID));
 					msgEnvoyer.addReceiver(new AID("AgentTabou@Plateforme_multiagnets_PVC",AID.ISGUID));
 					monAgent.send(msgEnvoyer);
-					System.out.format("GA    |send message %d\n",i++);
+//					System.out.format("GA    |send message %d\n",i++);
 				}catch (UnreadableException e) {
 					e.printStackTrace();
 				}	
 			}
-			msgRecu=this.getAgent().receive();
-			System.out.format("GA    |receive message %d\n",j++);
+			msgRecu=this.monAgent.receive();
+//			if(msgRecu!=null)
+//				System.out.format("GA    |receive message %d\n",j++);
 		}
     block();    
     }

@@ -10,7 +10,7 @@ import tour.Tour;
 import static java.lang.Math.*;
 
 public class ModeleGA {
-    private static final long MAX_ITER = 100000;
+    private static final long MAX_ITER = 10000;
     private static final double CONVERGE_LIMIT = 0.00001;
     private static final double RATE_CROSS = 0.95;
 

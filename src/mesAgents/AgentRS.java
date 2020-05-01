@@ -1,6 +1,10 @@
 package mesAgents;
 
+
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.TimeZone;
 
 import city.City;
 import jade.core.Agent;
@@ -15,6 +19,7 @@ public class AgentRS extends Agent {
 	private Object[] argsTour;
 	private double bestDistance;
 	private Tour bestTour;
+	private int NB_EXECUTION=5;
 
 	protected void setup(){
 //        Tour tour=new Tour();
@@ -27,15 +32,28 @@ public class AgentRS extends Agent {
 //        tour.addCity(new City("Dijon", 47.3220,5.0415));
 		argsTour = getArguments();
 		Tour tour=(Tour)argsTour[0];
+
+		for(int i=0;i<NB_EXECUTION;i++) {
+		    long initTime = System.currentTimeMillis();
+			ModeleRS rs=new ModeleRS();
+			rs.initTour(tour);
+			Tour bestT = rs.recuitSimule();
+			double bestDis=bestT.getDistance();
+			long overTime=System.currentTimeMillis();
+			long excutionTime=overTime-initTime;
+//			String hms = sdf.format(excutionTime);
+			System.out.println("RS    |Best Tour: " + bestT);
+			System.out.println("RS    |Final solution distance: " + bestDis);
+			System.out.println("Rs    |Le temps d'éxecution est :"+ excutionTime+"ms");
+		}
+		
+		long initTimeSMA =  System.currentTimeMillis();
 		ModeleRS rs=new ModeleRS();
 		rs.initTour(tour);
-		Tour bestTour = rs.recuitSimule();
+		this.bestTour = rs.recuitSimule();
 		this.bestDistance=bestTour.getDistance();
-		System.out.println("RS    |Tour: " + bestTour);
-		System.out.println("RS    |Final solution distance: " +bestTour.getDistance());
-		    
-		addBehaviour(new InteractionRS(this));
-	    
+		
+		addBehaviour(new InteractionRS(this,initTimeSMA));
 	}
 	
 	public ModeleRS getModele() {
@@ -47,7 +65,7 @@ public class AgentRS extends Agent {
 		return this.bestDistance;
 	}
 	
-	public Tour getBESTtOUR() {
+	public Tour getBestTour() {
 		return this.bestTour;
 	}
 	
@@ -64,7 +82,6 @@ public class AgentRS extends Agent {
 	public static void main(String[] args) {
 		
 		
-	
 		
 	}
 }

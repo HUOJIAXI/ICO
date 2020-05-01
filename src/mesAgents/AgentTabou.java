@@ -1,10 +1,14 @@
 package mesAgents;
 
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.TimeZone;
 
 import jade.core.Agent;
 import mesComportements.InteractionRS;
 import mesComportements.InteractionTabou;
+import mesMetaheuristiques.ModeleRS;
 import mesMetaheuristiques.ModeleTabou;
 import outil.GUI;
 import tour.Tour;
@@ -16,6 +20,7 @@ public class AgentTabou extends Agent{
 	private Object [] argsTour;
 	private double bestDistance;
 	private Tour bestTour;
+	private int NB_EXECUTION=5;
 
 	protected void setup(){
 //        Tour tour=new Tour();
@@ -27,15 +32,32 @@ public class AgentTabou extends Agent{
 //        tour.addCity(new City("Marseille", 43.2965,5.3698));
 //        tour.addCity(new City("Dijon", 47.3220,5.0415));	
 		argsTour = getArguments();
+//		System.out.println("Tabou is here");
 		Tour tour=(Tour)argsTour[0];
-		ModeleTabou tabu = new ModeleTabou(6, 30, 10, 4);
+
+		for(int i=0;i<NB_EXECUTION;i++) {
+//			System.out.println("Tabou is in for boucle");
+		    long initTime =  System.currentTimeMillis();
+		    ModeleTabou tabou=new ModeleTabou(20, 50, 30, 20 );;
+			tabou.init(tour);
+			tabou.generateInitGroup();
+			Tour bestT = tabou.getBestTour();
+			double bestDis=bestT.getDistance();
+			long overTime =  System.currentTimeMillis(); 
+			long excutionTime=overTime-initTime;
+			System.out.println("Tabou |Best Tour: " + bestT);
+			System.out.println("Tabou |Final solution distance: " + bestDis);
+			System.out.println("Tabou |Le temps d'éxecution est :"+ excutionTime+"ms");
+		}
+		
+		long initTimeSMA =  System.currentTimeMillis();
+		ModeleTabou tabu = new ModeleTabou(20, 50, 30, 20 );;
 		tabu.init(tour);
-		Tour bestTour = tabu.getBestTour();
+		tabu.generateInitGroup();
+		this.bestTour = tabu.getBestTour();
 		this.bestDistance=bestTour.getDistance();
-		System.out.println("Tabou |Tour: " + bestTour);
-		System.out.println("Tabou |Final solution distance: " +bestTour.getDistance());
 		    
-		addBehaviour(new InteractionTabou(this));
+		addBehaviour(new InteractionTabou(this,initTimeSMA));
 	    
 	} 
 	

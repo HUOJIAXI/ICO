@@ -89,9 +89,8 @@ public class Tour implements Serializable {
 		this.depart = depart;
 	}
 	
-	public Tour addCity(City city) {
+	public void addCity(City city) {
 		this.cityList.add(city);
-		return this;
 	}
 
 	public ArrayList<City> getCityList() {
@@ -118,6 +117,8 @@ public class Tour implements Serializable {
     
 	public String toString() {
 		String geneString = "";
+		geneString+=this.getDepart().getName();
+		geneString+=" : ";
 		int i = 0;
 		for (i = 0; i < this.cityList.size() - 1; i++) {
 			geneString += getCity(i) + " -> ";
@@ -131,6 +132,7 @@ public class Tour implements Serializable {
 		if (this == obj) {
 			return true;
 		}
+		
 		if (obj == null) {
 			return false;
 		}
@@ -138,15 +140,22 @@ public class Tour implements Serializable {
 		if (getClass() != obj.getClass()) {
 			return false;
 		}
+		
 		final Tour other = (Tour) obj;
 		if (this.cityList.isEmpty() || other.cityList.isEmpty()) {
 			return false;
 		}
+		
 		for (int i = 0; i < this.cityList.size(); i++) {
-			if (!other.getCityList().get(i).equals(this.cityList.get(i)))
-				;
+			if (!other.getCityList().get(i).equals(this.cityList.get(i))){
+				return false;
+			}
+		}
+		
+		if(!this.getDepart().equals(other.getDepart())) {
 			return false;
 		}
+		
 		return true;
 	}
 

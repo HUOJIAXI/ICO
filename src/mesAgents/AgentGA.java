@@ -7,16 +7,20 @@ import mesComportements.InteractionGA;
 import mesMetaheuristiques.ModeleGA;
 import mesMetaheuristiques.ModeleRS;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.TimeZone;
 
 import city.City;
 
 public class AgentGA extends Agent { 
 
-    private ModeleGA myGAs;
+    private ModeleGA myGA;
 	private Object[] argsTour;
     private double ShortestTotalDistance;
     private Tour shortestTour;
+	private int NB_EXECUTION=5;
 
     protected void setup(){
 //        ArrayList<City> cities = new ArrayList<City>();
@@ -29,17 +33,31 @@ public class AgentGA extends Agent {
 //        City depart =new City("Bordeaux", 44.8333, -0.5667);
         argsTour = getArguments();
 		Tour tour=(Tour)argsTour[0];	
+		for(int i=0;i<NB_EXECUTION;i++) {
+			    long initTime = System.currentTimeMillis();
+			    ModeleGA gas = new ModeleGA(30, 0.15, tour.getCityList(),tour.getDepart());
+			    gas.Evolution();
+		        Tour bestT = new Tour(gas.getShortestTour());
+		        double bestDis = bestT.getDistance();
+				long overTime = System.currentTimeMillis();
+				long excutionTime=overTime-initTime;
+				System.out.println("GA    |Best Tour: " + bestT);
+				System.out.println("GA    |Final solution distance: " + bestDis);
+				System.out.println("GA    |Le temps d'éxecution est :"+ excutionTime+"ms");
+			}
+		
+		long initTimeSMA = System.currentTimeMillis();
         ModeleGA gas = new ModeleGA(30, 0.15, tour.getCityList(),tour.getDepart());
         gas.Evolution();
         this.shortestTour = new Tour(gas.getShortestTour());
         this.ShortestTotalDistance = this.shortestTour.getDistance();
-        System.out.println("GA    |Tour: " + shortestTour);
-		System.out.println("GA    |Final solution distance: " +ShortestTotalDistance);
-        addBehaviour(new InteractionGA(this));
+		
+        addBehaviour(new InteractionGA(this,initTimeSMA));
+
     }
 
     public ModeleGA getModele() {
-        return this.myGAs;
+        return this.myGA;
     }
 
     public double getBestDistance(){
