@@ -1,9 +1,9 @@
 package mesMetaheuristiques;
 
 /**
- *@description: Module algorithme Récuit Simulé. Ce module est de construire la structure de l'algorithme récuit simulé, celui qui permet d'être appelé par le module externe
- *@author: FANG Zhengjie & HUO Jiaxi
- *@created: 02/05/2020
+ * @description: Module algorithme Récuit Simulé. Ce module est de construire la structure de l'algorithme récuit simulé, celui qui permet d'être appelé par le module externe
+ * @author: FANG Zhengjie & HUO Jiaxi
+ * @created: 02/05/2020
  */
 
 import java.util.ArrayList;

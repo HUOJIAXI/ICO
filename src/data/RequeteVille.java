@@ -1,17 +1,10 @@
 package data;
 
 /**
-*@description: Méthode de connexion de la base de données
-*@author: Author: HUO Jiaxi & FANG Zhengjie
-*@created: 02/05/2020
+* @description: Méthode de connexion de la base de données
+* @author: Author: HUO Jiaxi & FANG Zhengjie
+* @created: 02/05/2020
 */
-
-/**
- *@description: Module algorithme Récuit Simulé. Ce module est de construire la structure de l'algorithme récuit simulé, celui qui permet d'être appelé par le module externe
- *@author: FANG Zhengjie & HUO Jiaxi
- *@created: 02/05/2020
- */
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;

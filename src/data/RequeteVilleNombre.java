@@ -1,9 +1,9 @@
 package data;
 
 /**
- *@description: Méthode d'enregistrer les données qui sont requises de la base de données
- *@author: Author: HUO Jiaxi & FANG Zhengjie
- *@created:02/05/2020
+ * @description: Méthode d'enregistrer les données qui sont requises de la base de données
+ * @author: Author: HUO Jiaxi & FANG Zhengjie
+ * @created:02/05/2020
  */
 
 import java.sql.*;
@@ -68,7 +68,7 @@ public class RequeteVilleNombre {
 	public ArrayList<String> BDDconnexion(){
 		
 	String UserName="root";
-	String Password="f19961104zj";
+	String Password="zjuhjx1998";
 	String num_recherche=String.valueOf(num);
 	
 	Connection connect = null;
@@ -85,7 +85,7 @@ public class RequeteVilleNombre {
 	}
 	
 	try {
-		connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/villes_france",UserName,Password); 
+		connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/city",UserName,Password); 
 //		System.out.println("reussite à connecter la BDD");
 	} 
 	
